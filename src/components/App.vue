@@ -2,7 +2,7 @@
   <div id="app">
     <Header />
     <router-view> </router-view>
-    <Footer firstname="Ylona" num="0499000000" />
+    <Footer firstname="Ylona" num="0467123456" />
   </div>
 </template>
 
