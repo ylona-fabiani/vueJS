@@ -7,6 +7,9 @@
       </tr>
     </thead>
     <tbody>
+      <tr>
+        <img src="@/assets/loading.gif" v-if="(loading = true)" />
+      </tr>
       <Skill
         v-for="(skill, key) in skills"
         :name="skill.name"
@@ -19,6 +22,7 @@
 
 <script>
 import Skill from "./Skill";
+import { getSkills } from "../server/helper";
 
 export default {
   name: "mySkills",
@@ -26,21 +30,18 @@ export default {
   // Ici, les données de notre composant
   data() {
     return {
-      skills: [
-        {
-          name: "PHP",
-          percent: "80%",
-        },
-        {
-          name: "JavaScript",
-          percent: "60%",
-        },
-        {
-          name: "VueJS",
-          percent: "Bientôt 100%",
-        },
-      ],
+      skills: [],
+      loading: true,
     };
+  },
+  async mounted() {
+    await getSkills().then((res) => {
+      this.skills = res.data.skills;
+    });
+  },
+
+  beforeUpdate() {
+    this.loading = false;
   },
 };
 </script>
